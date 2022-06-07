@@ -5,6 +5,6 @@ app = FastAPI()
 
 @app.get("/api")
 def hello():
-  return { "message": "Hello, world!" }
+  return { "message": "Hello, world!!" }
 
 app.mount("/", StaticFiles(directory="client/build", html=True), name="client")

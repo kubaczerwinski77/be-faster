@@ -7,7 +7,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "uvicorn main:app --reload",
+    "start": "uvicorn index:app --reload && npm postinstall",
     "postinstall": "npm --prefix client install && npm run --prefix client build"
   },
   "keywords": [],
