@@ -1,11 +1,11 @@
 import React from "react";
 import { Anchor as MantineAnchor } from "@mantine/core";
 
-const Anchor = ({ text }) => {
+const Anchor = ({ title, isChecked, clickCb }) => {
   return (
     <MantineAnchor
       sx={(theme) => ({
-        color: theme.colors.claret,
+        color: isChecked ? theme.colors.red : theme.colors.claret,
         "&:hover": {
           color: theme.colors.red,
           textDecoration: "none",
@@ -13,8 +13,9 @@ const Anchor = ({ text }) => {
         },
         paddingLeft: "5px",
       })}
+      onClick={clickCb}
     >
-      {text}
+      {title}
     </MantineAnchor>
   );
 };

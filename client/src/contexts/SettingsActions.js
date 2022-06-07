@@ -1,0 +1,9 @@
+const actions = {
+  TOGGLE_NUMBERS: "TOGGLE_NUMBERS",
+  TOGGLE_PUNCTUATION: "TOGGLE_PUNCTUATION",
+  SET_MODE: "SET_MODE",
+  SET_SECONDS: "SET_SECONDS",
+};
+
+export default actions;
+

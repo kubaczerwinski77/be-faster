@@ -1,8 +1,15 @@
-import { AppShell, Box, Text } from "@mantine/core";
+import { AppShell, Box, Button } from "@mantine/core";
+import { useContext } from "react";
+import { Context } from "../contexts/SettingsContextProvider";
 import Footer from "./Footer";
 import Header from "./Header";
 
 const Shell = () => {
+  const { state } = useContext(Context);
+
+  const handleClick = () => {
+    console.log(state);
+  };
   return (
     <AppShell
       header={<Header />}
@@ -19,11 +26,7 @@ const Shell = () => {
           height: "77vh",
         }}
       >
-        <Text
-          sx={(theme) => ({ color: theme.colors.claret, fontSize: "80px" })}
-        >
-          Main content
-        </Text>
+        <Button onClick={() => handleClick()}>Check state</Button>
       </Box>
     </AppShell>
   );

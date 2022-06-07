@@ -31,7 +31,7 @@ const Footer = () => {
             }}
           >
             <RiContactsLine color="#D8E9A8" />
-            <Anchor text={"Contact"} />
+            <Anchor title={"Contact"} />
           </Box>
           <Box
             sx={{
@@ -42,7 +42,7 @@ const Footer = () => {
             }}
           >
             <BsCodeSlash color="#D8E9A8" />
-            <Anchor text={"Github"} />
+            <Anchor title={"Github"} />
           </Box>
           <Box
             sx={{
@@ -53,7 +53,7 @@ const Footer = () => {
             }}
           >
             <MdOutlinePrivacyTip color="#D8E9A8" />
-            <Anchor text={"Privacy"} />
+            <Anchor title={"Privacy"} />
           </Box>
           <Box
             sx={{
@@ -64,7 +64,7 @@ const Footer = () => {
             }}
           >
             <MdOutlineSecurity color="#D8E9A8" />
-            <Anchor text={"Security"} />
+            <Anchor title={"Security"} />
           </Box>
         </Box>
         <Box
@@ -83,7 +83,7 @@ const Footer = () => {
             }}
           >
             <BiDonateHeart color="#D8E9A8" />
-            <Anchor text={"Buy me a coffee"} />
+            <Anchor title={"Buy me a coffee"} />
           </Box>
         </Box>
       </Box>
