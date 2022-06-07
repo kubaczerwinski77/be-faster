@@ -1,5 +1,5 @@
 import React from "react";
-import { Header as MantineHeader, Box, Text, ActionIcon } from "@mantine/core";
+import { Header as MantineHeader, Box } from "@mantine/core";
 import { BsKeyboard } from "react-icons/bs";
 import { TbCrown } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
@@ -8,7 +8,7 @@ import Settings from "./Settings.jsx";
 
 const Header = () => {
   return (
-    <MantineHeader height={80}>
+    <MantineHeader p="md" height={100}>
       <Box
         sx={{
           display: "flex",

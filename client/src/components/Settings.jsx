@@ -3,7 +3,7 @@ import Anchor from "./Anchor";
 
 const Settings = () => {
   return (
-    <Box>
+    <Box sx={{ paddingLeft: "300px" }}>
       <Box
         sx={{
           display: "flex",

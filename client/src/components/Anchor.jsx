@@ -5,9 +5,9 @@ const Anchor = ({ text }) => {
   return (
     <MantineAnchor
       sx={(theme) => ({
-        color: "#D8E9A8",
+        color: theme.colors.claret,
         "&:hover": {
-          color: "#4E9F3D",
+          color: theme.colors.red,
           textDecoration: "none",
           fontWeight: "bold",
         },
