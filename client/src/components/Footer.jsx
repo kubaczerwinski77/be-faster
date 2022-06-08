@@ -22,28 +22,42 @@ const Footer = () => {
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "0 30px 0 100px",
-            }}
+          <a
+            href="https://www.linkedin.com/in/jakub-czerwi%C5%84ski-a56567223/"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none" }}
           >
-            <RiContactsLine color="#D8E9A8" />
-            <Anchor title={"Contact"} />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "0 30px",
-            }}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0 30px 0 100px",
+              }}
+            >
+              <RiContactsLine color="#D8E9A8" />
+              <Anchor title={"Contact"} />
+            </Box>
+          </a>
+          <a
+            href="https://github.com/kubaczerwinski77"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none" }}
           >
-            <BsCodeSlash color="#D8E9A8" />
-            <Anchor title={"Github"} />
-          </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0 30px",
+              }}
+            >
+              <BsCodeSlash color="#D8E9A8" />
+              <Anchor title={"Github"} />
+            </Box>
+          </a>
           <Box
             sx={{
               display: "flex",

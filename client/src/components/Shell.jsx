@@ -17,10 +17,11 @@ const Shell = () => {
         display: "flex",
         flexDirection: "column",
       })}
-      styles={() => ({
-        body: { flexGrow: "2" },
+      styles={(theme) => ({
+        body: { flexGrow: "2", backgroundColor: theme.colors.dark },
         main: {
           display: "flex",
+          backgroundColor: theme.colors.dark,
           padding: 0,
         },
       })}

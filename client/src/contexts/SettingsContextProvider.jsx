@@ -8,7 +8,7 @@ const initialState = {
   includeNumbers: false,
   mode: {
     type: "words",
-    seconds: 30,
+    seconds: 5,
   },
 };
 
