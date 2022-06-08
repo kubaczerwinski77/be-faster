@@ -1,33 +1,35 @@
-import { AppShell, Box, Button } from "@mantine/core";
-import { useContext } from "react";
-import { Context } from "../contexts/SettingsContextProvider";
+import { AppShell } from "@mantine/core";
 import Footer from "./Footer";
 import Header from "./Header";
+import TypeTest from "./TypeTest";
+import { Routes, Route } from "react-router-dom";
 
 const Shell = () => {
-  const { state } = useContext(Context);
-
-  const handleClick = () => {
-    console.log(state);
-  };
   return (
     <AppShell
       header={<Header />}
       footer={<Footer />}
       sx={(theme) => ({
         backgroundColor: theme.colors.dark,
+        border: "none",
+        overflow: "hidden",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      })}
+      styles={() => ({
+        body: { flexGrow: "2" },
+        main: {
+          display: "flex",
+          padding: 0,
+        },
       })}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "77vh",
-        }}
-      >
-        <Button onClick={() => handleClick()}>Check state</Button>
-      </Box>
+      <Routes>
+        <Route path="/account" element={"Account"} />
+        <Route path="/leaderboard" element={"Leaderboard"} />
+        <Route path="/*" element={<TypeTest />} />
+      </Routes>
     </AppShell>
   );
 };
