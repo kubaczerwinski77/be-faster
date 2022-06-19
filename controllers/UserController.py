@@ -33,5 +33,8 @@ class User():
     return document
   
   async def remove_user(self, id):
+    exists = await self.collection.find_one({"_id": ObjectId(id)})
+    if not exists:
+      return False
     await self.collection.delete_one({"_id": ObjectId(id)})
     return True

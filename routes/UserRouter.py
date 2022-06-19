@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from models.UserModels import UserCreate
+from models.UserModels import UserCreate, UserBase
 from controllers.UserController import User
 
 router = APIRouter(
@@ -22,7 +22,7 @@ async def get_user_by_id(id):
   raise HTTPException(404, f"There is no user with id {id}")
 
 @router.post("/", response_model=UserCreate)
-async def post_user(user: UserCreate):
+async def post_user(user: UserBase):
   # check if user with this email exists
   emailExists = await initUser.fetch_one_user_by_email(user.email)
   if (emailExists):
