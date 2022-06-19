@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from models.UserModels import UserCreate
 from database import database
-
+from utils import getPasswordHash
 class User():
   def __init__(self) -> None:
     self.collection = database.users
@@ -28,6 +28,7 @@ class User():
 
   async def create_user(self, user):
     document = user
+    document["password"] = getPasswordHash(document["password"])
     await self.collection.insert_one(document)
     return document
   
