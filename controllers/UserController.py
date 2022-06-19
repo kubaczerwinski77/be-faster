@@ -23,7 +23,6 @@ class User():
     cursor = self.collection.find({})
     async for document in cursor:
       users.append(UserCreate(**document))
-    print(users)
     return users
 
   async def create_user(self, user):

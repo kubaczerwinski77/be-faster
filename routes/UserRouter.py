@@ -1,6 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from models.UserModels import UserCreate, UserBase
 from controllers.UserController import User
+from utils import getPasswordHash, oauth2Scheme, verifyPassword
 
 router = APIRouter(
   prefix="/users",
@@ -13,13 +15,6 @@ initUser = User()
 async def get_users():
   response = await initUser.fetch_all_users()
   return response
-
-@router.get("/{id}", response_model=UserCreate)
-async def get_user_by_id(id):
-  response = await initUser.fetch_one_user_by_id(id)
-  if response:
-    return response
-  raise HTTPException(404, f"There is no user with id {id}")
 
 @router.post("/", response_model=UserCreate)
 async def post_user(user: UserBase):
@@ -46,3 +41,31 @@ async def delete_user(id):
   if response:
     return f"Succesfully deleted user with id {id}"
   raise HTTPException(400, f"There is no user with id {id}")
+
+# authentication zone
+async def getCurrentUser(token: str = Depends(oauth2Scheme)):
+    user = await initUser.fetch_one_user_by_username(token) 
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return user
+
+
+async def getCurrentActiveUser(currentUser: UserBase = Depends(getCurrentUser)):
+    if currentUser.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return currentUser
+
+@router.get("/me")
+async def read_users_me(currentUser: UserCreate = Depends(getCurrentActiveUser)):
+  return currentUser
+
+@router.get("/{id}", response_model=UserCreate)
+async def get_user_by_id(id):
+  response = await initUser.fetch_one_user_by_id(id)
+  if response:
+    return response
+  raise HTTPException(404, f"There is no user with id {id}") 

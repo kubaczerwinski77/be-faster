@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId as BsonObjectId
-from numpy import deprecate
 from passlib.context import CryptContext
+from fastapi.security import OAuth2PasswordBearer
 
 class PydanticObjectId(BsonObjectId):
     @classmethod
@@ -23,3 +23,5 @@ def verifyPassword(plainPassword, hashedPassword):
 
 def getPasswordHash(password):
   return pwdContext.hash(password)
+
+oauth2Scheme = OAuth2PasswordBearer(tokenUrl="token")
