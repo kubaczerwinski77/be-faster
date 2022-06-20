@@ -24,4 +24,4 @@ def verifyPassword(plainPassword, hashedPassword):
 def getPasswordHash(password):
   return pwdContext.hash(password)
 
-oauth2Scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2Scheme = OAuth2PasswordBearer(tokenUrl="api/users/token")
