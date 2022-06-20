@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
-from controllers.UserController import User, UserCreate
+from controllers.UserController import User
 from routes.UserRouter import router as userRouter
-from utils import oauth2Scheme, verifyPassword
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 

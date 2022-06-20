@@ -25,3 +25,4 @@ client/yarn-error.log*
 ## SERVER
 __pycache__/
 /node_modules
+.env

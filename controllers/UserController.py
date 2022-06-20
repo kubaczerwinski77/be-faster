@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
-from models.UserModels import UserCreate
+from models.UserModels import UserCreate, UserBase
 from database import database
-from utils import getPasswordHash
+from utils import getPasswordHash, verifyPassword
 class User():
   def __init__(self) -> None:
     self.collection = database.users
@@ -37,3 +37,12 @@ class User():
       return False
     await self.collection.delete_one({"_id": ObjectId(id)})
     return True
+  
+  async def authenticateUser(self, username: str, password: str):
+    user = await self.fetch_one_user_by_username(username)
+    user = UserBase(**user)
+    if not user:
+      return False
+    if not verifyPassword(password, user.password):
+      return False
+    return user

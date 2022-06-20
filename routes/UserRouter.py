@@ -1,8 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from controllers.TokenController import createAccessToken
 from models.UserModels import UserCreate, UserBase
 from controllers.UserController import User
-from utils import getPasswordHash, oauth2Scheme, verifyPassword
+from jose import jwt, JWTError
+from utils import oauth2Scheme
+from models.TokenModels import TokenData, Token
+from datetime import timedelta
+import os
 
 router = APIRouter(
   prefix="/users",
@@ -44,13 +49,22 @@ async def delete_user(id):
 
 # authentication zone
 async def getCurrentUser(token: str = Depends(oauth2Scheme)):
-    user = await initUser.fetch_one_user_by_username(token) 
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    credencialsException = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=[os.getenv("ALGORITHM")])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credencialsException
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credencialsException
+    user = await initUser.fetch_one_user_by_username(username=token_data.username)
+    if user is None:
+        raise credencialsException
     user = UserBase(**user)
     return user
 
@@ -71,13 +85,17 @@ async def get_user_by_id(id):
     return response
   raise HTTPException(404, f"There is no user with id {id}")
 
-@router.post("/token")
-async def login(formData: OAuth2PasswordRequestForm = Depends()):
-    userDict = await initUser.fetch_one_user_by_username(formData.username)
-    if not userDict:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    user = UserCreate(**userDict)
-    if not verifyPassword(formData.password, user.password):
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-    return {"access_token": user.username, "token_type": "bearer"}
+@router.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = await initUser.authenticateUser(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    accessTokenExpires = timedelta(minutes=int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")))
+    accessToken = createAccessToken(
+        data={"sub": user.username}, expiresDelta=accessTokenExpires
+    )
+    return {"access_token": accessToken, "token_type": "bearer"}
