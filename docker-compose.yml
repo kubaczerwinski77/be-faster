@@ -3,5 +3,15 @@ services:
   server:
     build: .
     ports:
-      - "8080:3000"
+      - 8080:3000
+    environment:
+      MONGO_URL: mongodb://root:password@mongo:27017/
+
+  mongo:
+    image: mongo:5.0.9
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
 
