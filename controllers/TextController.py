@@ -85,3 +85,10 @@ class Text():
     await self.textCollection.insert_one(document)
 
     return TextRes(**document)
+
+  async def remove_text(self, id):
+    exists = await self.collection.find_one({"_id": ObjectId(id)})
+    if not exists:
+      return False
+    await self.collection.delete_one({"_id": ObjectId(id)})
+    return True

@@ -17,3 +17,10 @@ class Word:
   async def fetch_word_by_id(self, id):
     document = await self.collection.find_one({"_id": ObjectId(id)})
     return document
+  
+  async def remove_word(self, id):
+    exists = await self.collection.find_one({"_id": ObjectId(id)})
+    if not exists:
+      return False
+    await self.collection.delete_one({"_id": ObjectId(id)})
+    return True

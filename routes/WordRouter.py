@@ -20,3 +20,10 @@ async def get_word_by_id(id):
 async def get_all_words():
   response = await initWord.fetch_all_words()
   return response
+
+@router.delete("/{id}")
+async def delete_word_by_id(id):
+  response = await initWord.remove_word(id)
+  if response:
+    return f"Succesfully deleted word with id {id}"
+  raise HTTPException(400, f"There is no word with id {id}")
