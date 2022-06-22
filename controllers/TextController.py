@@ -9,9 +9,10 @@ class Text():
   def __init__(self) -> None:
     self.collection = database.words
     self.punctuation = [",", "?", "!", ".", ":", ";"]
+    self.textCollection = database.texts
   
   async def fetch_text_by_id(self, id):
-    document = await self.collection.find_one({"_id": ObjectId(id)})
+    document = await self.textCollection.find_one({"_id": ObjectId(id)})
     return document
 
   async def create_text(self, params):
@@ -76,6 +77,11 @@ class Text():
 
     document = {
       "wordArr": choosen,
+      "punctuation": params.punctuation,
+      "numbers": params.numbers,
+      "diff": params.diff,
     }
+
+    await self.textCollection.insert_one(document)
 
     return TextRes(**document)

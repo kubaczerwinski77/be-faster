@@ -1,6 +1,7 @@
 from typing import Union
 from xmlrpc.client import boolean
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from utils import PydanticObjectId
 
 class TextReq(BaseModel):
   punctuation: Union[boolean, None] = None
@@ -11,3 +12,6 @@ class TextReq(BaseModel):
 
 class TextRes(BaseModel):
   wordArr: list[str]
+  punctuation: Union[boolean, None] = None
+  numbers: Union[boolean, None] = None
+  diff: str
