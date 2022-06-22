@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from controllers.UserController import User
 from routes.UserRouter import router as userRouter
 from routes.TextRouter import router as textRouter
+from routes.WordRouter import router as wordRouter
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -27,6 +28,11 @@ app.include_router(
 
 app.include_router(
   textRouter,
+  prefix="/api"
+)
+
+app.include_router(
+  wordRouter,
   prefix="/api"
 )
 

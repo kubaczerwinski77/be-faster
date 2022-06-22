@@ -4,7 +4,7 @@ import asyncio
 
 # create array of words
 lines = []
-with open("/Users/kubaczerwinski77/Desktop/studies/sem-let-2021-22/skryptowe/be-faster/words.txt", 'r') as f:
+with open("words.txt", 'r') as f:
   lines = f.readlines()
 
 # remove additional characters

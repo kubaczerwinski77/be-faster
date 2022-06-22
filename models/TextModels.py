@@ -1,7 +1,6 @@
 from typing import Union
 from xmlrpc.client import boolean
-from pydantic import BaseModel, Field
-from utils import PydanticObjectId
+from pydantic import BaseModel
 
 class TextReq(BaseModel):
   punctuation: Union[boolean, None] = None
