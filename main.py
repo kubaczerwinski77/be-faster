@@ -5,6 +5,7 @@ from controllers.UserController import User
 from routes.UserRouter import router as userRouter
 from routes.TextRouter import router as textRouter
 from routes.WordRouter import router as wordRouter
+from routes.TestRouter import router as testRouter
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,6 +34,11 @@ app.include_router(
 
 app.include_router(
   wordRouter,
+  prefix="/api"
+)
+
+app.include_router(
+  testRouter,
   prefix="/api"
 )
 
