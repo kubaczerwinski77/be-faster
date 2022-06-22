@@ -21,6 +21,11 @@ async def get_users():
   response = await initUser.fetch_all_users()
   return response
 
+@router.get("/stats/{id}", tags=["users"])
+async def get_stats_by_user_id(id):
+  response = await initUser.fetch_stats_by_user_id(id)
+  return response
+
 @router.post("/", response_model=UserCreate)
 async def post_user(user: UserBase):
   # check if user with this email exists

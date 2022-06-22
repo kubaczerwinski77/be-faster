@@ -1,10 +1,11 @@
 from bson.objectid import ObjectId
 from models.UserModels import UserCreate, UserBase
 from database import database
-from utils import getPasswordHash, verifyPassword
+from utils import PydanticObjectId, getPasswordHash, verifyPassword
 class User():
   def __init__(self) -> None:
     self.collection = database.users
+    self.resultsCollection = database.results
 
   async def fetch_one_user_by_email(self, email):
     document = await self.collection.find_one({"email": email})
@@ -46,3 +47,11 @@ class User():
     if not verifyPassword(password, user.password):
       return False
     return user
+  
+  async def fetch_stats_by_user_id(self, id):
+    tests = []
+    # FIX THIS OBJECT ID ISSUE
+    cursor = self.resultsCollection.find({"userId": ObjectId(id)})
+    async for doc in cursor:
+      tests.append(doc)
+    return tests
