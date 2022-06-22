@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from controllers.UserController import User
 from routes.UserRouter import router as userRouter
+from routes.TextRouter import router as textRouter
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -21,6 +22,11 @@ app.add_middleware(
 
 app.include_router(
   userRouter,
+  prefix="/api"
+)
+
+app.include_router(
+  textRouter,
   prefix="/api"
 )
 
